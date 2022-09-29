@@ -2,4 +2,4 @@
 
 # Run migrate
 echo "Running migrate..."
-yoyo apply --database="${CHALLANGE_DB}" ./migrations
+yoyo apply --database="postgresql://postgres:postgres@localhost:5436/challengedb" ./migrations --batch

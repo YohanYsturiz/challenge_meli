@@ -1,9 +1,9 @@
-import os
+from os import environ
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
 engine = create_engine(
-    os.getenv("CHALLANGE_DB"),
+    environ.get("CHALLANGE_DB", "postgresql://postgres:postgres@localhost:5436/challengedb"),
     echo=True,
     future=True
 )

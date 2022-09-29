@@ -1,0 +1,17 @@
+version: "3.7"
+
+services:
+  challengedb:
+    image: "postgres"
+    ports:
+      - "5436:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=challengedb
+    # networks:
+    #   - app-challenge
+    container_name: postgresql_service
+
+# networks:
+#   app-challenge:
+#     driver: bridge

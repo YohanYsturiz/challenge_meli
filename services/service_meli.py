@@ -26,3 +26,4 @@ class ServiceMeli:
             return response.json()
 
         return {"error": "fail request"}
+

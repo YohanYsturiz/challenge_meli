@@ -10,10 +10,10 @@ def status_get():
 
 
 @items.post("/api/upload")
-def upload_file():
+async def upload_file():
     file = request.files["the_file"]
     params = request.form["params"]
 
-    items_count = read_file(file, json.loads(params))
+    items_count = await read_file(file, json.loads(params))
 
     return jsonify({"message": "success", "items_count": items_count})

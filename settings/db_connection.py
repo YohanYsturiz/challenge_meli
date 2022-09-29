@@ -8,7 +8,12 @@ engine = create_engine(
     future=True
 )
 
-def save(obj):
+def save_all(objs):
+    with Session(engine) as session:
+        session.add_all(objs)
+        session.commit()
+
+def save_one(obj):
     with Session(engine) as session:
         session.add(obj)
         session.commit()

@@ -60,7 +60,6 @@ def save_item(item: list):
         isValid = validate_json(item_data[0]["body"])
 
         if isValid:
-            print("entraaaaa")
             category_data = get_category(item_data[0]["body"]["category_id"])
             currency_data = get_currency(item_data[0]["body"]["currency_id"])
             user_data = get_user(item_data[0]["body"]["seller_id"])

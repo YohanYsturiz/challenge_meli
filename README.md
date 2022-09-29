@@ -55,3 +55,16 @@ sh run.sh
     params: "{\"separator\":\",\",\"format\":\"csv\",\"encoding\":\"utf-8\"}"
 ```
 
+# Desafio Teorico
+
+1. Procesos o Hilos
+    - Cuando usar Procesos
+        -R= Cuando se necesita utilizar al maximo los procesadores en una maquina determinada para ejecutar una tarea, ejm: para procesar un gran numero de datos sin esperar por I/O se puede derivar en varios procesos si tenemos N cores disponibles.
+
+    - Cuando usar Hilos o Threads
+        -R= Cuando se necesitan ejecutar tareas no tan pesadas  y si se hace mucho de data compartida entre hilos entonces conveniente usar Threads [Un proceso puede tener varios hilos], llamar a funciones dentro de un bucle para que sea ejecutadas.
+    
+    - Cuando usar corrutinas
+        -R= Cuando necesite llamar desde una funcion a otra funcion y esperar el resultado de la misma para continuar con la funcion principal parecido al (Async await en JS) / no es paralelismo pero su control es mas optimo.
+
+    

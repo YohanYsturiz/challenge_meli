@@ -1,9 +1,9 @@
 import os
 
 from flask import Flask
+
 from routes.items_routes import items
 from settings.db_connection import engine
-
 
 db = engine
 

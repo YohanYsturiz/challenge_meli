@@ -13,6 +13,7 @@ item_json_schema = {
     "required": ["seller_id", "price", "currency_id", "start_time", "category_id"],
 }
 
+
 def validate_json(jsonData):
     try:
         validate(instance=jsonData, schema=item_json_schema)

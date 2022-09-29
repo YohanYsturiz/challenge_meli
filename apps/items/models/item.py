@@ -31,11 +31,10 @@ class Item(Base):
     created_at = sa.Column(sa.DateTime(timezone=True), default=func.now())
 
     def __init__(self, site, item_code, price, start_time, name, description, nickname):
-        self.site = site,
+        self.site = (site,)
         self.item_code = item_code
         self.price = price
         self.start_time = start_time
         self.name = name
         self.description = description
         self.nickname = nickname
-        

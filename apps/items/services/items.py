@@ -2,16 +2,16 @@ import codecs
 import csv
 import json
 import logging
-
-from apps.items.models.item import Item
-from services.service_meli import ServiceMeli
-from settings.db_connection import save as save_db
 from concurrent.futures import ThreadPoolExecutor
 
+from apps.items.models.item import Item
 from apps.items.utils import validate_json
+from services.service_meli import ServiceMeli
+from settings.db_connection import save as save_db
 
-logging.basicConfig(level=logging.DEBUG, format='%(threadName)s: %(message)s')
+logging.basicConfig(level=logging.DEBUG, format="%(threadName)s: %(message)s")
 executor = ThreadPoolExecutor(max_workers=6)
+
 
 def get_item(item):
     api = ServiceMeli(
@@ -63,7 +63,6 @@ def save_item(item: list):
             category_data = get_category(item_data[0]["body"]["category_id"])
             currency_data = get_currency(item_data[0]["body"]["currency_id"])
             user_data = get_user(item_data[0]["body"]["seller_id"])
-            
 
             try:
                 obj = Item(
@@ -79,7 +78,6 @@ def save_item(item: list):
                 save_db(obj)
             except Exception as err:
                 raise err
-
 
 
 def read_file(file, params):

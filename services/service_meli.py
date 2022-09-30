@@ -2,7 +2,7 @@ import logging
 
 import requests
 
-from settings.base import API_MELI
+from settings.base import Config
 
 logger = logging.getLogger(__name__)
 
@@ -12,7 +12,7 @@ class ServiceMeli:
         self,
         path: str,
         params: dict,
-        endpoint: str = API_MELI,
+        endpoint: str = Config.API_MELI,
     ):
 
         self.endpoint = endpoint

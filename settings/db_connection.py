@@ -2,11 +2,10 @@ from os import environ
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
+from settings.base import Config
 
 engine = create_engine(
-    environ.get(
-        "CHALLANGE_DB", "postgresql://postgres:postgres@localhost:5436/challengedb"
-    ),
+    Config.DATABASE,
     echo=True,
     future=True,
 )

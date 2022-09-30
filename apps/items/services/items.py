@@ -2,16 +2,18 @@ import codecs
 import csv
 import json
 import logging
-from concurrent.futures import ThreadPoolExecutor
+import time
+import multiprocessing
+
+from concurrent.futures import ProcessPoolExecutor
 
 from apps.items.models.item import Item
 from apps.items.utils import validate_json
 from services.service_meli import ServiceMeli
 from settings.db_connection import save as save_db
 
-logging.basicConfig(level=logging.DEBUG, format="%(threadName)s: %(message)s")
-executor = ThreadPoolExecutor(max_workers=6)
-
+start_time = time.time()
+num_cores = multiprocessing.cpu_count()
 
 def get_item(item):
     api = ServiceMeli(
@@ -55,6 +57,7 @@ def get_user(user_id: int):
 
 def save_item(item: list):
     item_data = get_item("".join(item))
+    obj = {}
     if item_data[0]["code"] == 200:
 
         isValid = validate_json(item_data[0]["body"])
@@ -78,16 +81,31 @@ def save_item(item: list):
                 save_db(obj)
             except Exception as err:
                 raise err
+    return obj
 
 
 def read_file(file, params):
     config_params = json.loads(params)
     stream = codecs.iterdecode(file.stream, config_params["encoding"])
 
-    for index, row in enumerate(
-        csv.reader(stream, delimiter=config_params["separator"])
-    ):
-        if row and index >= 1:
-            executor.submit(save_item, row)
+    tasks = []
+    with ProcessPoolExecutor(max_workers=num_cores) as pool:
+        for index, row in enumerate(
+            csv.reader(stream, delimiter=config_params["separator"])
+        ):
+            if row and index >= 1:
+                task = pool.submit(save_item, row)
+                tasks.append(task)
+    
+    results = []
+    for task in tasks:
+        result = task.result()
+        results.append(result)
 
-    return 1
+    end_time = time.time()
+    total = end_time - start_time
+
+    print(results)
+    print("Tiempo de ejecucion:", total)
+
+    return True

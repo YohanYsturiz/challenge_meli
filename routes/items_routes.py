@@ -16,4 +16,4 @@ def upload_file():
 
     items_count = read_file(file, json.loads(params))
 
-    return jsonify({"message": "success", "items_count": items_count})
+    return jsonify({"success": items_count})
